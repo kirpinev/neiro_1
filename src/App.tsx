@@ -501,7 +501,7 @@ export const App = () => {
         </div>
       </div>
 
-      <Gap size={32} />
+      <Gap size={96} />
 
       <div className={appSt.bottomBtnThx}>
         <ButtonMobile loading={loading} block view="primary" onClick={submit}>
