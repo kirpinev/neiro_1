@@ -363,7 +363,7 @@ export const App = () => {
           </ButtonMobile>
         </div>
 
-        <Gap size={16} />
+        <Gap size={32} />
 
         {transfer === "self" ? (
           <div
@@ -503,7 +503,7 @@ export const App = () => {
 
       <Gap size={32} />
 
-      <div className={appSt.bottomBtn}>
+      <div className={appSt.bottomBtnThx}>
         <ButtonMobile loading={loading} block view="primary" onClick={submit}>
           Подключить
         </ButtonMobile>
