@@ -26,7 +26,7 @@ import "swiper/css/pagination";
 export const App = () => {
   const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
-  const [transfer, setTransfer] = useState<string>("self");
+  const [transfer, setTransfer] = useState<string>("");
 
   const submit = () => {
     setLoading(true);
@@ -271,7 +271,9 @@ export const App = () => {
                   view="primary-small"
                   style={{ marginBottom: 0 }}
                 >
-                  "За 4 месяца накопил на новый телефон, следуя рекомендациям по экономии. Если бы не ежедневная поддержка банка и через полгода не купил бы его. Теперь коплю на ноутбук для учебы!"
+                  "За 4 месяца накопил на новый телефон, следуя рекомендациям по
+                  экономии. Если бы не ежедневная поддержка банка и через
+                  полгода не купил бы его. Теперь коплю на ноутбук для учебы!"
                 </Typography.Text>
                 <Typography.Text
                   tag="p"
@@ -296,7 +298,10 @@ export const App = () => {
                   view="primary-small"
                   style={{ marginBottom: 0 }}
                 >
-                  "Научилась управлять деньгами благодаря финансовой стратегии, которую мне сформировал советник. Стала выгоднее использовать кэшбэк, и теперь с подработок хватает денег для того, чтобы их откладывать"
+                  "Научилась управлять деньгами благодаря финансовой стратегии,
+                  которую мне сформировал советник. Стала выгоднее использовать
+                  кэшбэк, и теперь с подработок хватает денег для того, чтобы их
+                  откладывать"
                 </Typography.Text>
                 <Typography.Text
                   tag="p"
@@ -321,7 +326,9 @@ export const App = () => {
                   view="primary-small"
                   style={{ marginBottom: 0 }}
                 >
-                  "Всегда думал, что копить сложно, не понимал, как пользоваться банковскими продуктами. Теперь знаю о них всё! За полгода сделал себе запас на год вперёд и купил PS5. Родители в шоке!"
+                  "Всегда думал, что копить сложно, не понимал, как пользоваться
+                  банковскими продуктами. Теперь знаю о них всё! За полгода
+                  сделал себе запас на год вперёд и купил PS5. Родители в шоке!"
                 </Typography.Text>
                 <Typography.Text
                   tag="p"
@@ -337,10 +344,22 @@ export const App = () => {
 
         <Gap size={32} />
 
+        <Typography.TitleResponsive
+          font="system"
+          tag="h3"
+          view="small"
+          weight="semibold"
+          className={appSt.productsTitle}
+        >
+          Выберите план
+        </Typography.TitleResponsive>
+
+        <Gap size={16} />
+
         <div style={{ display: "flex", gap: "1rem" }}>
           <ButtonMobile
             block
-            view={transfer !== "self" ? "secondary" : "primary"}
+            view={!transfer || transfer !== "self" ? "secondary" : "primary"}
             onClick={() => setTransfer("self")}
             size="xs"
             style={{ padding: "0.5rem" }}
@@ -351,7 +370,7 @@ export const App = () => {
           <ButtonMobile
             block
             onClick={() => setTransfer("sfr")}
-            view={transfer !== "sfr" ? "secondary" : "primary"}
+            view={!transfer || transfer !== "sfr" ? "secondary" : "primary"}
             size="xs"
             style={{ padding: "0.5rem" }}
           >
@@ -362,7 +381,7 @@ export const App = () => {
 
         <Gap size={32} />
 
-        {transfer === "self" ? (
+        {transfer === "self" && (
           <div
             style={{
               display: "flex",
@@ -409,7 +428,9 @@ export const App = () => {
               </Typography.Text>
             </div>
           </div>
-        ) : (
+        )}
+
+        {transfer === "sfr" && (
           <div
             style={{
               display: "flex",
@@ -477,31 +498,41 @@ export const App = () => {
           </div>
         )}
 
-        <Gap size={32} />
+        {transfer && (
+          <>
+            <Gap size={32} />
 
-        <div className={appSt.reminder}>
-          <img
-            src={smirk}
-            alt=""
-            width={20}
-            height={20}
-            style={{ marginRight: "0.8rem" }}
-          />
-          <Typography.Text
-            tag="p"
-            view="primary-small"
-            style={{ marginBottom: 0 }}
-          >
-            При остатке на счёте более 5 000 руб. доступ ко всем функциям —
-            бесплатный
-          </Typography.Text>
-        </div>
+            <div className={appSt.reminder}>
+              <img
+                src={smirk}
+                alt=""
+                width={20}
+                height={20}
+                style={{ marginRight: "0.8rem" }}
+              />
+              <Typography.Text
+                tag="p"
+                view="primary-small"
+                style={{ marginBottom: 0 }}
+              >
+                При остатке на счёте более 5 000 руб. доступ ко всем функциям —
+                бесплатный
+              </Typography.Text>
+            </div>
+          </>
+        )}
       </div>
 
       <Gap size={96} />
 
       <div className={appSt.bottomBtnThx}>
-        <ButtonMobile loading={loading} block view="primary" onClick={submit}>
+        <ButtonMobile
+          loading={loading}
+          disabled={!transfer}
+          block
+          view="primary"
+          onClick={submit}
+        >
           Подключить
         </ButtonMobile>
       </div>
